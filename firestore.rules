@@ -1,0 +1,179 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function userPath() {
+      return /databases/$(database)/documents/users/$(request.auth.uid);
+    }
+
+    function isAdmin() {
+      return isAuthenticated() &&
+        exists(userPath()) &&
+        get(userPath()).data.role in ['admin', 'moderator'];
+    }
+
+    function isNotBanned() {
+      return isAuthenticated() && (
+        !exists(userPath()) ||
+        (
+          get(userPath()).data.get('isBanned', false) != true &&
+          get(userPath()).data.get('isSuspended', false) != true
+        )
+      );
+    }
+
+    function isConversationParticipant(conversationId) {
+      return isAuthenticated() &&
+        exists(/databases/$(database)/documents/conversations/$(conversationId)) &&
+        request.auth.uid in get(/databases/$(database)/documents/conversations/$(conversationId)).data.participantIds;
+    }
+
+    match /users/{userId} {
+      allow read: if isAuthenticated();
+      allow create: if isOwner(userId);
+      allow update: if isOwner(userId) || isAdmin() ||
+        // Allow followingCount/followersCount increment or decrement by ±1,
+        // needed because follow/unfollow updates BOTH the follower's and the
+        // followed user's documents, not just the current user's own document.
+        (
+          isAuthenticated() &&
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['followingCount', 'followersCount']) &&
+          (
+            !request.resource.data.diff(resource.data).affectedKeys().hasAny(['followingCount']) ||
+            request.resource.data.followingCount == resource.data.followingCount + 1 ||
+            request.resource.data.followingCount == resource.data.followingCount - 1
+          ) &&
+          (
+            !request.resource.data.diff(resource.data).affectedKeys().hasAny(['followersCount']) ||
+            request.resource.data.followersCount == resource.data.followersCount + 1 ||
+            request.resource.data.followersCount == resource.data.followersCount - 1
+          )
+        );
+      allow delete: if isAdmin();
+    }
+
+    match /posts/{postId} {
+      allow read: if isAuthenticated();
+      allow create: if isNotBanned();
+      allow update: if isNotBanned() && (
+        resource.data.authorId == request.auth.uid ||
+        isAdmin() ||
+        // Allow likesCount increment OR decrement by any authenticated user (like/unlike)
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['likesCount']) &&
+         (request.resource.data.likesCount == resource.data.likesCount + 1 ||
+          request.resource.data.likesCount == resource.data.likesCount - 1)) ||
+        // Allow commentsCount increment OR decrement (add/delete comment)
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['commentsCount']) &&
+         (request.resource.data.commentsCount == resource.data.commentsCount + 1 ||
+          request.resource.data.commentsCount == resource.data.commentsCount - 1))
+      );
+      allow delete: if isAdmin() || (isNotBanned() && resource.data.authorId == request.auth.uid);
+    }
+
+    match /comments/{commentId} {
+      allow read: if isAuthenticated();
+      allow create: if isNotBanned();
+      allow delete: if isNotBanned() && (resource.data.authorId == request.auth.uid || isAdmin());
+    }
+
+    match /likes/{likeId} {
+      allow read: if isAuthenticated();
+      allow write: if isNotBanned();
+    }
+
+    match /events/{eventId} {
+      allow read: if isAuthenticated();
+      allow create: if isNotBanned();
+      allow update: if isNotBanned() && (
+        resource.data.organizerId == request.auth.uid ||
+        isAdmin() ||
+        // Allow participantsCount/waitlistCount ±1 updates by any authenticated
+        // user, needed because joining/leaving an event updates the event
+        // document even when the requester is not the organizer.
+        (
+          request.resource.data.diff(resource.data).affectedKeys().hasOnly(['participantsCount', 'waitlistCount', 'updatedAt']) &&
+          (
+            !request.resource.data.diff(resource.data).affectedKeys().hasAny(['participantsCount']) ||
+            request.resource.data.participantsCount == resource.data.participantsCount + 1 ||
+            request.resource.data.participantsCount == resource.data.participantsCount - 1
+          ) &&
+          (
+            !request.resource.data.diff(resource.data).affectedKeys().hasAny(['waitlistCount']) ||
+            request.resource.data.waitlistCount == resource.data.waitlistCount + 1 ||
+            request.resource.data.waitlistCount == resource.data.waitlistCount - 1
+          )
+        )
+      );
+      allow delete: if isAdmin();
+    }
+
+    match /eventParticipants/{participantId} {
+      allow read: if isAuthenticated();
+      allow write: if isNotBanned();
+    }
+
+    match /conversations/{conversationId} {
+      // resource == null guard is required: when checking whether a
+      // conversation already exists (getDoc before creating a new one),
+      // Firestore evaluates this rule even though the document doesn't
+      // exist yet. Without the guard, resource.data on a null resource
+      // throws and the SDK surfaces it as permission-denied, breaking
+      // "start new conversation" for any two users who haven't chatted yet.
+      allow read: if isAuthenticated() &&
+        (resource == null || request.auth.uid in resource.data.participantIds);
+      allow create: if isAuthenticated() &&
+        request.auth.uid in request.resource.data.participantIds;
+      allow update: if isAuthenticated() &&
+        request.auth.uid in resource.data.participantIds;
+      allow delete: if isAdmin();
+    }
+
+    match /messages/{messageId} {
+      allow read: if isAuthenticated() &&
+        isConversationParticipant(resource.data.conversationId);
+      allow create: if isAuthenticated() &&
+        request.resource.data.senderId == request.auth.uid &&
+        request.resource.data.conversationId is string &&
+        isConversationParticipant(request.resource.data.conversationId);
+      allow update: if isAuthenticated() &&
+        isConversationParticipant(resource.data.conversationId);
+      allow delete: if isAdmin();
+    }
+
+    match /notifications/{notificationId} {
+      allow read: if isOwner(resource.data.userId);
+      allow create: if isAuthenticated();
+      allow update: if isOwner(resource.data.userId);
+      allow delete: if isOwner(resource.data.userId) || isAdmin();
+    }
+
+    match /reports/{reportId} {
+      allow read: if isAdmin();
+      allow create: if isNotBanned();
+      allow update: if isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    match /blocks/{blockId} {
+      allow read, write: if isAuthenticated();
+    }
+
+    match /follows/{followId} {
+      allow read: if isAuthenticated();
+      allow create: if isNotBanned() && request.auth.uid == request.resource.data.followerId;
+      allow delete: if (isNotBanned() && request.auth.uid == resource.data.followerId) || isAdmin();
+    }
+
+    match /adminActions/{actionId} {
+      allow read: if isAdmin();
+      allow create: if isAdmin();
+    }
+  }
+}
