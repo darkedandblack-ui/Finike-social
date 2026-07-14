@@ -61,16 +61,16 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-950 via-gray-900 to-teal-950/30 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-950 via-gray-900 to-orange-950/30 p-4">
       <Card className="w-full max-w-md space-y-6">
         <div className="text-center">
           <Link href="/" className="inline-flex items-center gap-2">
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-teal-500 to-cyan-500">
+            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-amber-500">
               <span className="text-xl font-bold text-white">F</span>
             </div>
           </Link>
-          <h1 className="mt-4 text-2xl font-bold text-white">Kayıt Ol</h1>
-          <p className="mt-1 text-sm text-gray-400">
+          <h1 className="mt-4 text-2xl font-bold text-[var(--foreground)]">Kayıt Ol</h1>
+          <p className="mt-1 text-sm text-[var(--muted)]">
             Finike Social topluluğuna katıl
           </p>
         </div>
@@ -116,10 +116,10 @@ export default function RegisterPage() {
 
         <div className="relative">
           <div className="absolute inset-0 flex items-center">
-            <div className="w-full border-t border-white/10" />
+            <div className="w-full border-t border-[var(--border)]" />
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="bg-transparent px-2 text-gray-500">veya</span>
+            <span className="bg-transparent px-2 text-[var(--muted)]">veya</span>
           </div>
         </div>
 
@@ -132,9 +132,9 @@ export default function RegisterPage() {
           Google ile Kayıt Ol
         </Button>
 
-        <p className="text-center text-sm text-gray-400">
+        <p className="text-center text-sm text-[var(--muted)]">
           Zaten hesabınız var mı?{" "}
-          <Link href="/login" className="text-teal-400 hover:underline">
+          <Link href="/login" className="text-orange-500 hover:underline">
             Giriş Yap
           </Link>
         </p>

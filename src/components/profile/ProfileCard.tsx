@@ -52,7 +52,7 @@ export function ProfileCard({
   };
   return (
     <Card className="overflow-hidden p-0">
-      <div className="relative h-32 bg-gradient-to-r from-teal-600 to-cyan-600">
+      <div className="relative h-32 bg-gradient-to-r from-orange-600 to-amber-600">
         {profile.coverUrl && (
           <img
             src={profile.coverUrl}
@@ -73,8 +73,8 @@ export function ProfileCard({
       <div className="px-6 pb-6 pt-14">
         <div className="flex items-start justify-between">
           <div>
-            <h2 className="text-xl font-bold text-white">{profile.displayName}</h2>
-            <p className="text-gray-400">@{profile.username}</p>
+            <h2 className="text-xl font-bold text-[var(--foreground)]">{profile.displayName}</h2>
+            <p className="text-[var(--muted)]">@{profile.username}</p>
           </div>
           <div className="flex gap-2">
             {isOwn ? (
@@ -109,12 +109,12 @@ export function ProfileCard({
         </div>
 
         {profile.bio && (
-          <p className="mt-4 text-gray-300">{profile.bio}</p>
+          <p className="mt-4 text-[var(--foreground)]">{profile.bio}</p>
         )}
 
         {profile.location && (
-          <div className="mt-3 flex items-center gap-2 text-sm text-gray-400">
-            <MapPin className="h-4 w-4 text-teal-400" />
+          <div className="mt-3 flex items-center gap-2 text-sm text-[var(--muted)]">
+            <MapPin className="h-4 w-4 text-orange-500" />
             {profile.location.city}
             {profile.location.address && ` — ${profile.location.address}`}
           </div>
@@ -122,22 +122,22 @@ export function ProfileCard({
 
         <div className="mt-4 flex gap-6 text-sm">
           <div>
-            <span className="font-semibold text-white">{profile.postsCount}</span>
-            <span className="ml-1 text-gray-400">Gönderi</span>
+            <span className="font-semibold text-[var(--foreground)]">{profile.postsCount}</span>
+            <span className="ml-1 text-[var(--muted)]">Gönderi</span>
           </div>
           <div>
-            <span className="font-semibold text-white">{profile.followersCount}</span>
-            <span className="ml-1 text-gray-400">Takipçi</span>
+            <span className="font-semibold text-[var(--foreground)]">{profile.followersCount}</span>
+            <span className="ml-1 text-[var(--muted)]">Takipçi</span>
           </div>
           <div>
-            <span className="font-semibold text-white">{profile.followingCount}</span>
-            <span className="ml-1 text-gray-400">Takip</span>
+            <span className="font-semibold text-[var(--foreground)]">{profile.followingCount}</span>
+            <span className="ml-1 text-[var(--muted)]">Takip</span>
           </div>
         </div>
 
         {profile.interests.length > 0 && (
           <div className="mt-4">
-            <p className="mb-2 flex items-center gap-1 text-sm font-medium text-gray-400">
+            <p className="mb-2 flex items-center gap-1 text-sm font-medium text-[var(--muted)]">
               <Users className="h-4 w-4" />
               İlgi Alanları
             </p>
@@ -151,7 +151,7 @@ export function ProfileCard({
           </div>
         )}
 
-        <div className="mt-4 flex items-center gap-1 text-xs text-gray-500">
+        <div className="mt-4 flex items-center gap-1 text-xs text-[var(--muted)]">
           <Calendar className="h-3 w-3" />
           Katılım: {profile.createdAt.toLocaleDateString("tr-TR")}
         </div>

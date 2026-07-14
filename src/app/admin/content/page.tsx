@@ -80,8 +80,8 @@ export default function AdminContentPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">İçerik Moderasyonu</h1>
-        <p className="text-gray-400">Gönderi ve etkinlikleri onayla, reddet veya yönet</p>
+        <h1 className="text-2xl font-bold text-[var(--foreground)]">İçerik Moderasyonu</h1>
+        <p className="text-[var(--muted)]">Gönderi ve etkinlikleri onayla, reddet veya yönet</p>
       </div>
 
       <div className="flex flex-wrap gap-2">
@@ -115,7 +115,7 @@ export default function AdminContentPage() {
         </div>
       ) : tab === "pending" ? (
         pendingEvents.length === 0 ? (
-          <Card className="py-12 text-center text-gray-400">
+          <Card className="py-12 text-center text-[var(--muted)]">
             Onay bekleyen içerik yok. 🎉
           </Card>
         ) : (
@@ -123,7 +123,7 @@ export default function AdminContentPage() {
             {pendingEvents.map((event) => (
               <Card key={event.id} className="space-y-3">
                 <div className="flex items-start justify-between gap-2">
-                  <h3 className="text-lg font-semibold text-white">{event.title}</h3>
+                  <h3 className="text-lg font-semibold text-[var(--foreground)]">{event.title}</h3>
                   <Badge variant="info">{event.category}</Badge>
                 </div>
 
@@ -135,27 +135,27 @@ export default function AdminContentPage() {
                   />
                 )}
 
-                <p className="line-clamp-3 text-sm text-gray-400">{event.description}</p>
+                <p className="line-clamp-3 text-sm text-[var(--muted)]">{event.description}</p>
 
-                <div className="space-y-1.5 text-sm text-gray-400">
+                <div className="space-y-1.5 text-sm text-[var(--muted)]">
                   <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-teal-400" />
+                    <Calendar className="h-4 w-4 text-orange-500" />
                     {formatDate(event.startDate)}
                   </div>
                   <div className="flex items-center gap-2">
-                    <MapPin className="h-4 w-4 text-teal-400" />
+                    <MapPin className="h-4 w-4 text-orange-500" />
                     {event.location.address ?? event.location.city}
                   </div>
                   <div className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-teal-400" />
+                    <Users className="h-4 w-4 text-orange-500" />
                     0/{event.maxParticipants} katılımcı
                   </div>
                 </div>
 
-                <div className="flex items-center justify-between border-t border-white/10 pt-3">
+                <div className="flex items-center justify-between border-t border-[var(--border)] pt-3">
                   <div className="flex items-center gap-2">
                     <Avatar src={event.organizerAvatar} name={event.organizerName} size="sm" />
-                    <span className="text-sm text-gray-400">{event.organizerName}</span>
+                    <span className="text-sm text-[var(--muted)]">{event.organizerName}</span>
                   </div>
                   <Button variant="secondary" size="sm" onClick={() => setDetailEvent(event)}>
                     <Eye className="h-4 w-4" />
@@ -163,7 +163,7 @@ export default function AdminContentPage() {
                   </Button>
                 </div>
 
-                <div className="flex gap-2 border-t border-white/10 pt-3">
+                <div className="flex gap-2 border-t border-[var(--border)] pt-3">
                   <Button
                     className="flex-1"
                     size="sm"
@@ -194,10 +194,10 @@ export default function AdminContentPage() {
             <Card key={post.id} className="flex items-start justify-between gap-4">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-white">{post.authorName}</span>
+                  <span className="font-medium text-[var(--foreground)]">{post.authorName}</span>
                   {post.isHidden && <Badge variant="danger">Gizli</Badge>}
                 </div>
-                <p className="mt-1 truncate text-sm text-gray-400">{post.content}</p>
+                <p className="mt-1 truncate text-sm text-[var(--muted)]">{post.content}</p>
               </div>
               {!post.isHidden && (
                 <Button variant="danger" size="sm" onClick={() => handleHidePost(post.id)}>
@@ -214,12 +214,12 @@ export default function AdminContentPage() {
             <Card key={event.id} className="flex items-start justify-between gap-4">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-white">{event.title}</span>
+                  <span className="font-medium text-[var(--foreground)]">{event.title}</span>
                   <Badge variant="info">{event.category}</Badge>
                   {!event.isApproved && <Badge variant="warning">Onay Bekliyor</Badge>}
                   {event.isHidden && <Badge variant="danger">Gizli</Badge>}
                 </div>
-                <p className="mt-1 truncate text-sm text-gray-400">{event.description}</p>
+                <p className="mt-1 truncate text-sm text-[var(--muted)]">{event.description}</p>
               </div>
               <div className="flex shrink-0 items-center gap-2">
                 <Button variant="secondary" size="sm" onClick={() => setDetailEvent(event)}>

@@ -103,7 +103,7 @@ export default function OnboardingPage() {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-950 via-gray-900 to-teal-950/30 p-4">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-gray-950 via-gray-900 to-orange-950/30 p-4">
       <Card className="w-full max-w-lg">
         <div className="mb-6">
           <div className="mb-4 flex justify-between">
@@ -113,19 +113,19 @@ export default function OnboardingPage() {
                   className={cn(
                     "flex h-8 w-8 items-center justify-center rounded-full text-sm font-medium",
                     i <= step
-                      ? "bg-teal-500 text-white"
-                      : "bg-white/10 text-gray-500"
+                      ? "bg-orange-500 text-white"
+                      : "bg-white/10 text-[var(--muted)]"
                   )}
                 >
                   {i < step ? <Check className="h-4 w-4" /> : i + 1}
                 </div>
-                <span className="text-xs text-gray-500">{s}</span>
+                <span className="text-xs text-[var(--muted)]">{s}</span>
               </div>
             ))}
           </div>
           <div className="h-1 rounded-full bg-white/10">
             <div
-              className="h-full rounded-full bg-teal-500 transition-all"
+              className="h-full rounded-full bg-orange-500 transition-all"
               style={{ width: `${((step + 1) / STEPS.length) * 100}%` }}
             />
           </div>
@@ -141,7 +141,7 @@ export default function OnboardingPage() {
           >
             {step === 0 && (
               <>
-                <h2 className="text-xl font-bold text-white">Profilini Onayla</h2>
+                <h2 className="text-xl font-bold text-[var(--foreground)]">Profilini Onayla</h2>
                 <div className="flex justify-center">
                   <Avatar
                     src={profile?.avatarUrl}
@@ -149,7 +149,7 @@ export default function OnboardingPage() {
                     size="xl"
                   />
                 </div>
-                <p className="text-center text-sm text-gray-400">
+                <p className="text-center text-sm text-[var(--muted)]">
                   Google hesabından alınan bilgilerin doğru mu?
                 </p>
               </>
@@ -157,7 +157,7 @@ export default function OnboardingPage() {
 
             {step === 1 && (
               <>
-                <h2 className="text-xl font-bold text-white">Profil Detayları</h2>
+                <h2 className="text-xl font-bold text-[var(--foreground)]">Profil Detayları</h2>
                 <Input
                   label="Ad Soyad"
                   error={errors.displayName?.message}
@@ -179,8 +179,8 @@ export default function OnboardingPage() {
 
             {step === 2 && (
               <>
-                <h2 className="text-xl font-bold text-white">İlgi Alanların</h2>
-                <p className="text-sm text-gray-400">En az bir tane seçin</p>
+                <h2 className="text-xl font-bold text-[var(--foreground)]">İlgi Alanların</h2>
+                <p className="text-sm text-[var(--muted)]">En az bir tane seçin</p>
                 <div className="flex flex-wrap gap-2">
                   {INTEREST_OPTIONS.map((interest) => (
                     <button
@@ -190,8 +190,8 @@ export default function OnboardingPage() {
                       className={cn(
                         "rounded-full px-4 py-2 text-sm transition-colors",
                         selectedInterests.includes(interest)
-                          ? "bg-teal-500 text-white"
-                          : "bg-white/5 text-gray-400 hover:bg-white/10"
+                          ? "bg-orange-500 text-white"
+                          : "bg-[var(--card)] text-[var(--muted)] hover:bg-white/10"
                       )}
                     >
                       {interest}
@@ -203,8 +203,8 @@ export default function OnboardingPage() {
 
             {step === 3 && (
               <>
-                <h2 className="text-xl font-bold text-white">Konum İzni</h2>
-                <p className="text-sm text-gray-400">
+                <h2 className="text-xl font-bold text-[var(--foreground)]">Konum İzni</h2>
+                <p className="text-sm text-[var(--muted)]">
                   Yakınındaki etkinlikleri görmek için konumunuza ihtiyacımız var.
                 </p>
                 <Input label="Şehir" defaultValue="Finike" {...register("city")} />

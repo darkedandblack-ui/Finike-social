@@ -43,8 +43,8 @@ export default function NotificationsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Bildirimler</h1>
-          <p className="text-gray-400">
+          <h1 className="text-2xl font-bold text-[var(--foreground)]">Bildirimler</h1>
+          <p className="text-[var(--muted)]">
             {unreadCount > 0 ? `${unreadCount} okunmamış bildirim` : "Tüm bildirimler okundu"}
           </p>
         </div>
@@ -61,9 +61,9 @@ export default function NotificationsPage() {
           <Spinner size="lg" />
         </div>
       ) : notifications.length === 0 ? (
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-12 text-center">
+        <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-12 text-center">
           <Bell className="mx-auto h-12 w-12 text-gray-600" />
-          <p className="mt-4 text-gray-400">Henüz bildiriminiz yok.</p>
+          <p className="mt-4 text-[var(--muted)]">Henüz bildiriminiz yok.</p>
         </div>
       ) : (
         <div className="space-y-2">

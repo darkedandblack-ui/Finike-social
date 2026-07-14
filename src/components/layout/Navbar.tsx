@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { useRouter, usePathname, useSearchParams } from "next/navigation";
 import { useTheme } from "next-themes";
 import {
   Home,
@@ -13,6 +13,8 @@ import {
   Moon,
   LogOut,
   Shield,
+  Search,
+  X,
 } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Avatar } from "@/components/ui/Avatar";
@@ -31,12 +33,20 @@ const navItems = [
 
 export function Navbar() {
   const pathname = usePathname();
+  const router = useRouter();
+  const searchParams = useSearchParams();
   const { profile, signOut } = useAuth();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [showSearch, setShowSearch] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
 
   useEffect(() => setMounted(true), []);
+
+  useEffect(() => {
+    setSearchValue(searchParams.get("q") ?? "");
+  }, [searchParams]);
 
   useEffect(() => {
     if (!profile?.id) return;
@@ -48,15 +58,22 @@ export function Navbar() {
 
   const isAdmin = profile?.role === "admin" || profile?.role === "moderator";
 
+  const submitSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    const q = searchValue.trim();
+    router.push(q ? `/feed?q=${encodeURIComponent(q)}` : "/feed");
+    setShowSearch(false);
+  };
+
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-gray-950/80 backdrop-blur-xl">
+    <header className="sticky top-0 z-40 border-b border-[var(--border)] bg-[var(--card-solid)]/80 backdrop-blur-xl">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 lg:px-6">
         <Link href="/feed" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-teal-500 to-cyan-500">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-orange-500 to-amber-500">
             <span className="text-lg font-bold text-white">F</span>
           </div>
-          <span className="hidden text-xl font-bold text-white sm:block">
-            Finike<span className="text-teal-400">Social</span>
+          <span className="hidden text-xl font-bold text-[var(--foreground)] sm:block">
+            Finike<span className="text-orange-500">Social</span>
           </span>
         </Link>
 
@@ -72,8 +89,8 @@ export function Navbar() {
                 className={cn(
                   "relative flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-colors",
                   isActive
-                    ? "bg-teal-500/20 text-teal-400"
-                    : "text-gray-400 hover:bg-white/5 hover:text-white"
+                    ? "bg-orange-500/15 text-orange-600"
+                    : "text-[var(--muted)] hover:bg-orange-500/10 hover:text-[var(--foreground)]"
                 )}
               >
                 <Icon className="h-5 w-5" />
@@ -92,8 +109,8 @@ export function Navbar() {
               className={cn(
                 "flex items-center gap-2 rounded-xl px-4 py-2 text-sm font-medium transition-colors",
                 pathname.startsWith("/admin")
-                  ? "bg-amber-500/20 text-amber-400"
-                  : "text-gray-400 hover:bg-white/5 hover:text-white"
+                  ? "bg-amber-500/20 text-amber-600"
+                  : "text-[var(--muted)] hover:bg-orange-500/10 hover:text-[var(--foreground)]"
               )}
             >
               <Shield className="h-5 w-5" />
@@ -103,6 +120,25 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
+          {showSearch ? (
+            <form onSubmit={submitSearch} className="flex items-center">
+              <input
+                autoFocus
+                value={searchValue}
+                onChange={(e) => setSearchValue(e.target.value)}
+                onBlur={() => !searchValue && setShowSearch(false)}
+                placeholder="Ara..."
+                className="h-9 w-40 rounded-lg border border-[var(--border)] bg-[var(--card)] px-3 text-sm text-[var(--foreground)] placeholder:text-[var(--muted)] focus:border-orange-500/50 focus:outline-none sm:w-56"
+              />
+              <Button type="button" variant="ghost" size="icon" onClick={() => setShowSearch(false)}>
+                <X className="h-4 w-4" />
+              </Button>
+            </form>
+          ) : (
+            <Button variant="ghost" size="icon" onClick={() => setShowSearch(true)}>
+              <Search className="h-5 w-5" />
+            </Button>
+          )}
           {mounted && (
             <Button
               variant="ghost"

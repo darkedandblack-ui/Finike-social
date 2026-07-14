@@ -80,8 +80,8 @@ export function PostCard({ post, onLikeChange }: PostCardProps) {
                 size="md"
               />
               <div>
-                <p className="font-semibold text-white">{post.authorName}</p>
-                <p className="text-sm text-gray-400">
+                <p className="font-semibold text-[var(--foreground)]">{post.authorName}</p>
+                <p className="text-sm text-[var(--muted)]">
                   {formatRelative(post.createdAt)}
                 </p>
               </div>
@@ -95,13 +95,13 @@ export function PostCard({ post, onLikeChange }: PostCardProps) {
                 <MoreHorizontal className="h-5 w-5" />
               </Button>
               {showMenu && (
-                <div className="absolute right-0 top-full z-10 mt-1 w-40 rounded-xl border border-white/10 bg-gray-900 py-1 shadow-xl">
+                <div className="absolute right-0 top-full z-10 mt-1 w-40 rounded-xl border border-[var(--border)] bg-gray-900 py-1 shadow-xl">
                   <button
                     onClick={() => {
                       setShowReport(true);
                       setShowMenu(false);
                     }}
-                    className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-400 hover:bg-white/5"
+                    className="flex w-full items-center gap-2 px-4 py-2 text-sm text-red-400 hover:bg-[var(--card)]"
                   >
                     <Flag className="h-4 w-4" />
                     Şikayet Et
@@ -115,22 +115,22 @@ export function PostCard({ post, onLikeChange }: PostCardProps) {
 
           <p className="whitespace-pre-wrap text-gray-200">{post.content}</p>
 
-          <div className="flex items-center gap-4 border-t border-white/10 pt-3">
+          <div className="flex items-center gap-4 border-t border-[var(--border)] pt-3">
             <button
               onClick={handleLike}
               disabled={loading}
               className="flex items-center gap-2 text-sm transition-colors hover:text-red-400"
             >
               <Heart
-                className={`h-5 w-5 ${liked ? "fill-red-500 text-red-500" : "text-gray-400"}`}
+                className={`h-5 w-5 ${liked ? "fill-red-500 text-red-500" : "text-[var(--muted)]"}`}
               />
-              <span className={liked ? "text-red-400" : "text-gray-400"}>
+              <span className={liked ? "text-red-400" : "text-[var(--muted)]"}>
                 {likesCount}
               </span>
             </button>
             <Link
               href={`/feed/post?id=${post.id}`}
-              className="flex items-center gap-2 text-sm text-gray-400 transition-colors hover:text-teal-400"
+              className="flex items-center gap-2 text-sm text-[var(--muted)] transition-colors hover:text-orange-500"
             >
               <MessageCircle className="h-5 w-5" />
               {post.commentsCount}

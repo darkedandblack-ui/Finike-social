@@ -94,7 +94,7 @@ function UserProfileContent() {
   }
 
   if (!profile) {
-    return <p className="text-center text-gray-400">Kullanıcı bulunamadı.</p>;
+    return <p className="text-center text-[var(--muted)]">Kullanıcı bulunamadı.</p>;
   }
 
   return (
@@ -106,9 +106,9 @@ function UserProfileContent() {
       />
 
       <div>
-        <h2 className="mb-4 text-xl font-semibold text-white">Gönderiler</h2>
+        <h2 className="mb-4 text-xl font-semibold text-[var(--foreground)]">Gönderiler</h2>
         {posts.length === 0 ? (
-          <p className="text-center text-gray-400 py-8">Henüz gönderi yok.</p>
+          <p className="text-center text-[var(--muted)] py-8">Henüz gönderi yok.</p>
         ) : (
           <div className="space-y-4">
             {posts.map((post) => (

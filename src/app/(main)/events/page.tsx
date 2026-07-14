@@ -145,8 +145,8 @@ export default function EventsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Etkinlikler</h1>
-          <p className="text-gray-400">Finike&apos;deki etkinlikleri keşfet</p>
+          <h1 className="text-2xl font-bold text-[var(--foreground)]">Etkinlikler</h1>
+          <p className="text-[var(--muted)]">Finike&apos;deki etkinlikleri keşfet</p>
         </div>
         <Button onClick={() => setShowCreate(true)}>
           <Plus className="h-5 w-5" />
@@ -159,9 +159,9 @@ export default function EventsPage() {
           <Spinner size="lg" />
         </div>
       ) : events.length === 0 ? (
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-12 text-center">
+        <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-12 text-center">
           <MapPin className="mx-auto h-12 w-12 text-gray-600" />
-          <p className="mt-4 text-gray-400">Henüz etkinlik yok.</p>
+          <p className="mt-4 text-[var(--muted)]">Henüz etkinlik yok.</p>
         </div>
       ) : (
         <div className="grid gap-4 md:grid-cols-2">
@@ -188,7 +188,7 @@ export default function EventsPage() {
       >
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-gray-300">
+            <label className="mb-1.5 block text-sm font-medium text-[var(--foreground)]">
               Fotoğraf (opsiyonel)
             </label>
             {imagePreview ? (
@@ -210,7 +210,7 @@ export default function EventsPage() {
               <button
                 type="button"
                 onClick={() => fileInputRef.current?.click()}
-                className="flex w-full flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-white/20 py-8 text-gray-400 hover:border-teal-500/50 hover:text-teal-400"
+                className="flex w-full flex-col items-center justify-center gap-2 rounded-xl border border-dashed border-[var(--border-strong)] py-8 text-[var(--muted)] hover:border-orange-500/50 hover:text-orange-500"
               >
                 <ImagePlus className="h-6 w-6" />
                 <span className="text-sm">Fotoğraf seçmek için tıkla</span>

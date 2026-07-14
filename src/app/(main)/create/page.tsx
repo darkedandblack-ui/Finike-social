@@ -50,8 +50,8 @@ export default function CreatePostPage() {
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">Gönderi Oluştur</h1>
-        <p className="text-gray-400">Düşüncelerini paylaş</p>
+        <h1 className="text-2xl font-bold text-[var(--foreground)]">Gönderi Oluştur</h1>
+        <p className="text-[var(--muted)]">Düşüncelerini paylaş</p>
       </div>
 
       <Card>

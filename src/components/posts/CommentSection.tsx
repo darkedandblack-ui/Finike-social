@@ -82,7 +82,7 @@ export function CommentSection({ postId, authorId }: CommentSectionProps) {
 
       <div className="space-y-3">
         {comments.map((comment) => (
-          <div key={comment.id} className="flex gap-3 rounded-xl bg-white/5 p-3">
+          <div key={comment.id} className="flex gap-3 rounded-xl bg-[var(--card)] p-3">
             <Avatar
               src={comment.authorAvatar}
               name={comment.authorName}
@@ -91,8 +91,8 @@ export function CommentSection({ postId, authorId }: CommentSectionProps) {
             <div className="flex-1">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="font-medium text-white">{comment.authorName}</span>
-                  <span className="ml-2 text-xs text-gray-500">
+                  <span className="font-medium text-[var(--foreground)]">{comment.authorName}</span>
+                  <span className="ml-2 text-xs text-[var(--muted)]">
                     {formatRelative(comment.createdAt)}
                   </span>
                 </div>
@@ -106,7 +106,7 @@ export function CommentSection({ postId, authorId }: CommentSectionProps) {
                   </Button>
                 )}
               </div>
-              <p className="mt-1 text-sm text-gray-300">{comment.content}</p>
+              <p className="mt-1 text-sm text-[var(--foreground)]">{comment.content}</p>
             </div>
           </div>
         ))}

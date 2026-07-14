@@ -39,7 +39,7 @@ export function Sidebar() {
     <aside className="hidden w-64 shrink-0 lg:block">
       <div className="sticky top-20 space-y-6">
         {profile && (
-          <div className="rounded-2xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl">
+          <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-4 backdrop-blur-xl">
             <div className="flex items-center gap-3">
               <Avatar
                 src={profile.avatarUrl}
@@ -47,16 +47,16 @@ export function Sidebar() {
                 size="lg"
               />
               <div className="min-w-0">
-                <p className="truncate font-semibold text-white">
+                <p className="truncate font-semibold text-[var(--foreground)]">
                   {profile.displayName}
                 </p>
-                <p className="truncate text-sm text-gray-400">
+                <p className="truncate text-sm text-[var(--muted)]">
                   @{profile.username}
                 </p>
               </div>
             </div>
             {profile.location && (
-              <div className="mt-3 flex items-center gap-1 text-sm text-gray-400">
+              <div className="mt-3 flex items-center gap-1 text-sm text-[var(--muted)]">
                 <MapPin className="h-4 w-4" />
                 {profile.location.city}
               </div>
@@ -65,7 +65,7 @@ export function Sidebar() {
         )}
 
         <nav className="space-y-1">
-          <p className="px-3 text-xs font-semibold uppercase tracking-wider text-gray-500">
+          <p className="px-3 text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
             Menü
           </p>
           {mainLinks.map((link) => {
@@ -78,8 +78,8 @@ export function Sidebar() {
                 className={cn(
                   "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                   isActive
-                    ? "bg-teal-500/20 text-teal-400"
-                    : "text-gray-400 hover:bg-white/5 hover:text-white"
+                    ? "bg-orange-500/15 text-orange-600"
+                    : "text-[var(--muted)] hover:bg-orange-500/10 hover:text-[var(--foreground)]"
                 )}
               >
                 <Icon className="h-5 w-5" />
@@ -90,7 +90,7 @@ export function Sidebar() {
         </nav>
 
         <nav className="space-y-1">
-          <p className="px-3 text-xs font-semibold uppercase tracking-wider text-gray-500">
+          <p className="px-3 text-xs font-semibold uppercase tracking-wider text-[var(--muted)]">
             Hesap
           </p>
           {profileLinks.map((link) => {
@@ -103,8 +103,8 @@ export function Sidebar() {
                 className={cn(
                   "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                   isActive
-                    ? "bg-teal-500/20 text-teal-400"
-                    : "text-gray-400 hover:bg-white/5 hover:text-white"
+                    ? "bg-orange-500/15 text-orange-600"
+                    : "text-[var(--muted)] hover:bg-orange-500/10 hover:text-[var(--foreground)]"
                 )}
               >
                 <Icon className="h-5 w-5" />
@@ -118,8 +118,8 @@ export function Sidebar() {
               className={cn(
                 "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors",
                 pathname.startsWith("/admin")
-                  ? "bg-amber-500/20 text-amber-400"
-                  : "text-gray-400 hover:bg-white/5 hover:text-white"
+                  ? "bg-amber-500/20 text-amber-600"
+                  : "text-[var(--muted)] hover:bg-orange-500/10 hover:text-[var(--foreground)]"
               )}
             >
               <Shield className="h-5 w-5" />

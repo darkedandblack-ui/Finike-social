@@ -41,8 +41,8 @@ export default function MessagesPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">Mesajlar</h1>
-        <p className="text-gray-400">Sohbetleriniz</p>
+        <h1 className="text-2xl font-bold text-[var(--foreground)]">Mesajlar</h1>
+        <p className="text-[var(--muted)]">Sohbetleriniz</p>
       </div>
 
       {error && (
@@ -56,10 +56,10 @@ export default function MessagesPage() {
           <Spinner size="lg" />
         </div>
       ) : conversations.length === 0 ? (
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-12 text-center">
+        <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-12 text-center">
           <MessageCircle className="mx-auto h-12 w-12 text-gray-600" />
-          <p className="mt-4 text-gray-400">Henüz mesajınız yok.</p>
-          <p className="mt-2 text-sm text-gray-500">
+          <p className="mt-4 text-[var(--muted)]">Henüz mesajınız yok.</p>
+          <p className="mt-2 text-sm text-[var(--muted)]">
             Bir kullanıcının profiline gidip &quot;Mesaj&quot; butonuna basarak sohbet başlatın.
           </p>
         </div>
@@ -72,24 +72,24 @@ export default function MessagesPage() {
               <Link
                 key={conv.id}
                 href={`/messages/chat?id=${conv.id}`}
-                className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/5 p-4 transition-colors hover:bg-white/10"
+                className="flex items-center gap-3 rounded-xl border border-[var(--border)] bg-[var(--card)] p-4 transition-colors hover:bg-white/10"
               >
                 <Avatar src={other.avatar} name={other.name} size="md" />
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center justify-between">
-                    <p className="font-medium text-white">{other.name}</p>
+                    <p className="font-medium text-[var(--foreground)]">{other.name}</p>
                     {conv.lastMessageAt && (
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-[var(--muted)]">
                         {formatRelative(conv.lastMessageAt)}
                       </span>
                     )}
                   </div>
-                  <p className="truncate text-sm text-gray-400">
+                  <p className="truncate text-sm text-[var(--muted)]">
                     {conv.lastMessage ?? "Sohbet başlatın"}
                   </p>
                 </div>
                 {unread > 0 && (
-                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-teal-500 text-xs text-white">
+                  <span className="flex h-5 w-5 items-center justify-center rounded-full bg-orange-500 text-xs text-white">
                     {unread}
                   </span>
                 )}

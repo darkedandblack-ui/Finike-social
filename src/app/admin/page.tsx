@@ -54,8 +54,8 @@ export default function AdminDashboardPage() {
   };
 
   const cards = [
-    { label: "Toplam Kullanıcı", value: stats.totalUsers, icon: Users, color: "text-teal-400" },
-    { label: "Toplam Gönderi", value: stats.totalPosts, icon: FileText, color: "text-cyan-400" },
+    { label: "Toplam Kullanıcı", value: stats.totalUsers, icon: Users, color: "text-orange-500" },
+    { label: "Toplam Gönderi", value: stats.totalPosts, icon: FileText, color: "text-amber-500" },
     { label: "Toplam Etkinlik", value: stats.totalEvents, icon: Calendar, color: "text-amber-400" },
     { label: "Bekleyen Şikayet", value: stats.pendingReports, icon: Flag, color: "text-red-400" },
   ];
@@ -71,8 +71,8 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">Admin Dashboard</h1>
-        <p className="text-gray-400">Platform istatistikleri</p>
+        <h1 className="text-2xl font-bold text-[var(--foreground)]">Admin Dashboard</h1>
+        <p className="text-[var(--muted)]">Platform istatistikleri</p>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -81,10 +81,10 @@ export default function AdminDashboardPage() {
           return (
             <Card key={card.label} className="space-y-2">
               <div className="flex items-center justify-between">
-                <span className="text-sm text-gray-400">{card.label}</span>
+                <span className="text-sm text-[var(--muted)]">{card.label}</span>
                 <Icon className={`h-5 w-5 ${card.color}`} />
               </div>
-              <p className="text-3xl font-bold text-white">{card.value}</p>
+              <p className="text-3xl font-bold text-[var(--foreground)]">{card.value}</p>
             </Card>
           );
         })}
@@ -93,9 +93,9 @@ export default function AdminDashboardPage() {
       <Card className="space-y-3 border-red-500/30 bg-red-950/10">
         <div className="flex items-center gap-2">
           <AlertTriangle className="h-5 w-5 text-red-400" />
-          <h2 className="text-lg font-semibold text-white">Tehlikeli Bölge</h2>
+          <h2 className="text-lg font-semibold text-[var(--foreground)]">Tehlikeli Bölge</h2>
         </div>
-        <p className="text-sm text-gray-400">
+        <p className="text-sm text-[var(--muted)]">
           Tüm test verilerini (kullanıcılar, gönderiler, etkinlikler, mesajlar,
           bildirimler, yorumlar, beğeniler, takip ilişkileri, şikayetler) kalıcı
           olarak siler. Sadece admin/moderatör hesapları korunur. Bu işlem geri
@@ -121,11 +121,11 @@ export default function AdminDashboardPage() {
             <p className="text-sm text-green-400">
               Temizlik tamamlandı. Silinen belge sayıları:
             </p>
-            <ul className="space-y-1 text-sm text-gray-300">
+            <ul className="space-y-1 text-sm text-[var(--foreground)]">
               {Object.entries(wipeResult).map(([key, value]) => (
                 <li key={key} className="flex justify-between">
                   <span>{key}</span>
-                  <span className="font-medium text-white">{value}</span>
+                  <span className="font-medium text-[var(--foreground)]">{value}</span>
                 </li>
               ))}
             </ul>
@@ -152,9 +152,9 @@ export default function AdminDashboardPage() {
           </div>
         ) : (
           <div className="space-y-4">
-            <p className="text-sm text-gray-300">
+            <p className="text-sm text-[var(--foreground)]">
               Bu işlem geri alınamaz. Devam etmek için aşağıya{" "}
-              <span className="font-semibold text-white">{CONFIRM_WORD}</span>{" "}
+              <span className="font-semibold text-[var(--foreground)]">{CONFIRM_WORD}</span>{" "}
               yazın.
             </p>
             <Input

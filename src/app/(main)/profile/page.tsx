@@ -40,13 +40,13 @@ export default function ProfilePage() {
       <ProfileCard profile={profile} isOwn />
 
       <div>
-        <h2 className="mb-4 text-xl font-semibold text-white">Gönderilerim</h2>
+        <h2 className="mb-4 text-xl font-semibold text-[var(--foreground)]">Gönderilerim</h2>
         {loading ? (
           <div className="flex justify-center py-8">
             <Spinner />
           </div>
         ) : posts.length === 0 ? (
-          <p className="text-center text-gray-400 py-8">Henüz gönderi yok.</p>
+          <p className="text-center text-[var(--muted)] py-8">Henüz gönderi yok.</p>
         ) : (
           <div className="space-y-4">
             {posts.map((post) => (

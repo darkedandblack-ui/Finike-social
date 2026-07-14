@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
+import { useSearchParams } from "next/navigation";
 import { PostCard } from "@/components/posts/PostCard";
 import { EventCard } from "@/components/events/EventCard";
 import { Spinner } from "@/components/ui/Spinner";
@@ -9,8 +10,10 @@ import { getFeed, joinEvent, leaveEvent } from "@/lib/firebase/firestore";
 import { useAuth } from "@/contexts/AuthContext";
 import type { FeedItem, Post, Event } from "@/types";
 
-export default function FeedPage() {
+function FeedContent() {
   const { user, profile } = useAuth();
+  const searchParams = useSearchParams();
+  const searchQuery = (searchParams.get("q") ?? "").trim().toLowerCase();
   const [feed, setFeed] = useState<FeedItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -36,6 +39,20 @@ export default function FeedPage() {
   useEffect(() => {
     loadFeed();
   }, [category]);
+
+  const visibleFeed = searchQuery
+    ? feed.filter((item) => {
+        const title = item.type === "event" ? (item.data as Event).title : "";
+        const body =
+          item.type === "event"
+            ? (item.data as Event).description
+            : (item.data as Post).content;
+        return (
+          title.toLowerCase().includes(searchQuery) ||
+          body.toLowerCase().includes(searchQuery)
+        );
+      })
+    : feed;
 
   const handleJoinEvent = async (eventId: string) => {
     if (!user || !profile) return;
@@ -71,8 +88,8 @@ export default function FeedPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">Akış</h1>
-        <p className="text-gray-400">Finike&apos;den son paylaşımlar ve etkinlikler</p>
+        <h1 className="text-2xl font-bold text-[var(--foreground)]">Akış</h1>
+        <p className="text-[var(--muted)]">Finike&apos;den son paylaşımlar ve etkinlikler</p>
       </div>
 
       {error && (
@@ -89,8 +106,8 @@ export default function FeedPage() {
             className={cn(
               "shrink-0 rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
               category === cat
-                ? "bg-teal-500 text-white"
-                : "bg-white/5 text-gray-400 hover:bg-white/10"
+                ? "bg-orange-500 text-white"
+                : "bg-[var(--card)] text-[var(--muted)] hover:bg-white/10"
             )}
           >
             {cat}
@@ -102,13 +119,17 @@ export default function FeedPage() {
         <div className="flex justify-center py-12">
           <Spinner size="lg" />
         </div>
-      ) : feed.length === 0 ? (
-        <div className="rounded-2xl border border-white/10 bg-white/5 p-12 text-center">
-          <p className="text-gray-400">Henüz paylaşım yok. İlk gönderiyi sen oluştur!</p>
+      ) : visibleFeed.length === 0 ? (
+        <div className="rounded-2xl border border-[var(--border)] bg-[var(--card)] p-12 text-center">
+          <p className="text-[var(--muted)]">
+            {searchQuery
+              ? "Aramanla eşleşen bir şey bulunamadı."
+              : "Henüz paylaşım yok. İlk gönderiyi sen oluştur!"}
+          </p>
         </div>
       ) : (
         <div className="space-y-4">
-          {feed.map((item) =>
+          {visibleFeed.map((item) =>
             item.type === "post" ? (
               <PostCard key={`post-${item.data.id}`} post={item.data as Post} />
             ) : (
@@ -124,5 +145,17 @@ export default function FeedPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function FeedPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex justify-center py-12">
+        <Spinner size="lg" />
+      </div>
+    }>
+      <FeedContent />
+    </Suspense>
   );
 }

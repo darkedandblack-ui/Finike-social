@@ -72,12 +72,12 @@ export default function AdminUsersPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">Kullanıcı Yönetimi</h1>
-        <p className="text-gray-400">Kullanıcıları listele, ara ve yönet</p>
+        <h1 className="text-2xl font-bold text-[var(--foreground)]">Kullanıcı Yönetimi</h1>
+        <p className="text-[var(--muted)]">Kullanıcıları listele, ara ve yönet</p>
       </div>
 
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-500" />
+        <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-[var(--muted)]" />
         <Input
           placeholder="Kullanıcı ara..."
           value={search}
@@ -97,8 +97,8 @@ export default function AdminUsersPage() {
               <div className="flex items-center gap-3">
                 <Avatar src={u.avatarUrl} name={u.displayName} size="md" />
                 <div>
-                  <p className="font-medium text-white">{u.displayName}</p>
-                  <p className="text-sm text-gray-400">@{u.username} · {u.email}</p>
+                  <p className="font-medium text-[var(--foreground)]">{u.displayName}</p>
+                  <p className="text-sm text-[var(--muted)]">@{u.username} · {u.email}</p>
                   <div className="mt-1 flex gap-2">
                     <Badge variant={u.role === "admin" ? "warning" : "default"}>
                       {u.role}
@@ -151,8 +151,8 @@ export default function AdminUsersPage() {
         size="sm"
       >
         <div className="space-y-4">
-          <p className="text-sm text-gray-300">
-            <span className="font-semibold text-white">{deleteTarget?.displayName}</span>{" "}
+          <p className="text-sm text-[var(--foreground)]">
+            <span className="font-semibold text-[var(--foreground)]">{deleteTarget?.displayName}</span>{" "}
             ({deleteTarget?.email}) ve bu kullanıcıya ait tüm gönderiler, yorumlar,
             beğeniler, etkinlikler, katılımlar, takip ilişkileri ve bildirimler
             kalıcı olarak silinecek. Bu işlem geri alınamaz.

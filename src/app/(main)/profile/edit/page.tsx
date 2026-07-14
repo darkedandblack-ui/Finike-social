@@ -72,8 +72,8 @@ export default function EditProfilePage() {
   return (
     <div className="mx-auto max-w-2xl space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-white">Profili Düzenle</h1>
-        <p className="text-gray-400">Profil bilgilerinizi güncelleyin</p>
+        <h1 className="text-2xl font-bold text-[var(--foreground)]">Profili Düzenle</h1>
+        <p className="text-[var(--muted)]">Profil bilgilerinizi güncelleyin</p>
       </div>
 
       <Card>
@@ -84,7 +84,7 @@ export default function EditProfilePage() {
               name={profile?.displayName ?? ""}
               size="xl"
             />
-            <p className="text-sm text-gray-400">
+            <p className="text-sm text-[var(--muted)]">
               Google ile giriş yaptıysan profil fotoğrafın otomatik gelir.
             </p>
           </div>
@@ -112,7 +112,7 @@ export default function EditProfilePage() {
           />
 
           <div>
-            <label className="mb-2 block text-sm font-medium text-gray-300">
+            <label className="mb-2 block text-sm font-medium text-[var(--foreground)]">
               İlgi Alanları
             </label>
             <div className="flex flex-wrap gap-2">
@@ -124,8 +124,8 @@ export default function EditProfilePage() {
                   className={cn(
                     "rounded-full px-3 py-1 text-sm transition-colors",
                     selectedInterests.includes(interest)
-                      ? "bg-teal-500 text-white"
-                      : "bg-white/5 text-gray-400 hover:bg-white/10"
+                      ? "bg-orange-500 text-white"
+                      : "bg-[var(--card)] text-[var(--muted)] hover:bg-white/10"
                   )}
                 >
                   {interest}

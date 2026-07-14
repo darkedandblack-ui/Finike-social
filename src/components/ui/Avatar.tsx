@@ -27,7 +27,7 @@ export function Avatar({ src, name, size = "md", className }: AvatarProps) {
     return (
       <div
         className={cn(
-          "relative overflow-hidden rounded-full ring-2 ring-teal-500/30",
+          "relative overflow-hidden rounded-full ring-2 ring-orange-500/30",
           sizes[size],
           className
         )}
@@ -46,7 +46,7 @@ export function Avatar({ src, name, size = "md", className }: AvatarProps) {
   return (
     <div
       className={cn(
-        "flex items-center justify-center rounded-full bg-gradient-to-br from-teal-500 to-cyan-600 font-semibold text-white ring-2 ring-teal-500/30",
+        "flex items-center justify-center rounded-full bg-gradient-to-br from-orange-500 to-amber-500 font-semibold text-white ring-2 ring-orange-500/30",
         sizes[size],
         className
       )}

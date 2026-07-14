@@ -17,12 +17,12 @@ export default function AdminLayout({
   return (
     <AuthGuard requireAdmin>
       <div className="min-h-screen bg-gradient-to-br from-gray-950 via-gray-900 to-amber-950/10">
-        <header className="border-b border-white/10 bg-gray-950/80 backdrop-blur-xl">
+        <header className="border-b border-[var(--border)] bg-[var(--background)]/80 backdrop-blur-xl">
           <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4">
-            <Link href="/admin" className="text-xl font-bold text-white">
+            <Link href="/admin" className="text-xl font-bold text-[var(--foreground)]">
               Admin<span className="text-amber-400">Panel</span>
             </Link>
-            <Link href="/feed" className="text-sm text-gray-400 hover:text-white">
+            <Link href="/feed" className="text-sm text-[var(--muted)] hover:text-[var(--foreground)]">
               Uygulamaya Dön
             </Link>
           </div>
@@ -36,7 +36,7 @@ export default function AdminLayout({
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-gray-400 transition-colors hover:bg-white/5 hover:text-white"
+                    className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-[var(--muted)] transition-colors hover:bg-[var(--card)] hover:text-[var(--foreground)]"
                   >
                     <Icon className="h-5 w-5" />
                     {link.label}

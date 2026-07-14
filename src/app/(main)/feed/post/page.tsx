@@ -39,8 +39,8 @@ function PostDetailContent() {
   if (!post) {
     return (
       <Card className="p-8 text-center">
-        <p className="text-gray-400">Gönderi bulunamadı.</p>
-        <Link href="/feed" className="mt-4 inline-block text-teal-400">
+        <p className="text-[var(--muted)]">Gönderi bulunamadı.</p>
+        <Link href="/feed" className="mt-4 inline-block text-orange-500">
           Akışa dön
         </Link>
       </Card>
@@ -51,7 +51,7 @@ function PostDetailContent() {
     <div className="space-y-6">
       <Link
         href="/feed"
-        className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white"
+        className="inline-flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)]"
       >
         <ArrowLeft className="h-4 w-4" />
         Akışa Dön
@@ -60,7 +60,7 @@ function PostDetailContent() {
       <PostCard post={post} />
 
       <Card>
-        <h2 className="mb-4 text-lg font-semibold text-white">Yorumlar</h2>
+        <h2 className="mb-4 text-lg font-semibold text-[var(--foreground)]">Yorumlar</h2>
         <CommentSection postId={post.id} authorId={post.authorId} />
       </Card>
     </div>

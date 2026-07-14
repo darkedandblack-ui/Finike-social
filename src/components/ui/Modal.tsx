@@ -59,14 +59,14 @@ export function Modal({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             className={cn(
-              "relative w-full rounded-2xl border border-white/10 bg-gray-900/95 p-6 shadow-2xl backdrop-blur-xl",
+              "relative w-full rounded-2xl border border-[var(--border)] bg-[var(--card-solid)] p-6 shadow-2xl backdrop-blur-xl",
               sizeClasses[size],
               className
             )}
           >
             {title && (
               <div className="mb-4 flex items-center justify-between">
-                <h2 className="text-lg font-semibold text-white">{title}</h2>
+                <h2 className="text-lg font-semibold text-[var(--foreground)]">{title}</h2>
                 <Button variant="ghost" size="icon" onClick={onClose}>
                   <X className="h-5 w-5" />
                 </Button>

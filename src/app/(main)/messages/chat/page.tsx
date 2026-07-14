@@ -105,7 +105,7 @@ function ChatContent() {
   if (error || !conversation || !user) {
     return (
       <div className="space-y-4 text-center">
-        <p className="text-gray-400">{error || "Sohbet bulunamadı."}</p>
+        <p className="text-[var(--muted)]">{error || "Sohbet bulunamadı."}</p>
         <Link href="/messages">
           <Button variant="outline">Mesajlara Dön</Button>
         </Link>
@@ -120,7 +120,7 @@ function ChatContent() {
     <div className="flex h-[calc(100vh-12rem)] flex-col space-y-4">
       <Link
         href="/messages"
-        className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white"
+        className="inline-flex items-center gap-2 text-sm text-[var(--muted)] hover:text-[var(--foreground)]"
       >
         <ArrowLeft className="h-4 w-4" />
         Mesajlara Dön

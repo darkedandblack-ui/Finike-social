@@ -34,7 +34,7 @@ export function EventDetailModal({ event, onClose }: EventDetailModalProps) {
           )}
 
           <div className="flex items-start justify-between gap-2">
-            <h3 className="text-xl font-semibold text-white">{event.title}</h3>
+            <h3 className="text-xl font-semibold text-[var(--foreground)]">{event.title}</h3>
             <div className="flex shrink-0 flex-wrap justify-end gap-2">
               <Badge variant="info">{event.category}</Badge>
               <Badge variant={statusLabels[getEventStatus(event)].variant}>
@@ -45,23 +45,23 @@ export function EventDetailModal({ event, onClose }: EventDetailModalProps) {
             </div>
           </div>
 
-          <p className="whitespace-pre-wrap text-sm text-gray-300">{event.description}</p>
+          <p className="whitespace-pre-wrap text-sm text-[var(--foreground)]">{event.description}</p>
 
-          <div className="space-y-2 rounded-xl border border-white/10 bg-white/5 p-4 text-sm text-gray-300">
+          <div className="space-y-2 rounded-xl border border-[var(--border)] bg-[var(--card)] p-4 text-sm text-[var(--foreground)]">
             <div className="flex items-center gap-2">
-              <Calendar className="h-4 w-4 text-teal-400" />
+              <Calendar className="h-4 w-4 text-orange-500" />
               Başlangıç: {formatDate(event.startDate)}
             </div>
             <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4 text-teal-400" />
+              <Clock className="h-4 w-4 text-orange-500" />
               Bitiş: {formatDate(event.endDate)}
             </div>
             <div className="flex items-center gap-2">
-              <MapPin className="h-4 w-4 text-teal-400" />
+              <MapPin className="h-4 w-4 text-orange-500" />
               {event.location.address ?? event.location.city} — {event.location.city}
             </div>
             <div className="flex items-center gap-2">
-              <Users className="h-4 w-4 text-teal-400" />
+              <Users className="h-4 w-4 text-orange-500" />
               {event.participantsCount}/{event.maxParticipants} katılımcı
               {event.waitlistCount > 0 && (
                 <span className="text-amber-400">
@@ -73,16 +73,16 @@ export function EventDetailModal({ event, onClose }: EventDetailModalProps) {
 
           <Link
             href={`/profile/user?id=${event.organizerId}`}
-            className="flex items-center gap-3 border-t border-white/10 pt-4"
+            className="flex items-center gap-3 border-t border-[var(--border)] pt-4"
           >
             <Avatar src={event.organizerAvatar} name={event.organizerName} size="sm" />
-            <div className="flex items-center gap-2 text-sm text-gray-400">
+            <div className="flex items-center gap-2 text-sm text-[var(--muted)]">
               <User className="h-4 w-4" />
-              Organizatör: <span className="text-white">{event.organizerName}</span>
+              Organizatör: <span className="text-[var(--foreground)]">{event.organizerName}</span>
             </div>
           </Link>
 
-          <div className="text-xs text-gray-500">
+          <div className="text-xs text-[var(--muted)]">
             Oluşturulma: {formatDate(event.createdAt)}
           </div>
         </div>

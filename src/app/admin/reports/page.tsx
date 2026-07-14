@@ -44,8 +44,8 @@ export default function AdminReportsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Şikayet Kuyruğu</h1>
-          <p className="text-gray-400">Kullanıcı şikayetlerini incele</p>
+          <h1 className="text-2xl font-bold text-[var(--foreground)]">Şikayet Kuyruğu</h1>
+          <p className="text-[var(--muted)]">Kullanıcı şikayetlerini incele</p>
         </div>
         <div className="flex gap-2">
           <Button
@@ -70,7 +70,7 @@ export default function AdminReportsPage() {
           <Spinner size="lg" />
         </div>
       ) : reports.length === 0 ? (
-        <Card className="p-8 text-center text-gray-400">
+        <Card className="p-8 text-center text-[var(--muted)]">
           Şikayet bulunamadı.
         </Card>
       ) : (
@@ -85,17 +85,17 @@ export default function AdminReportsPage() {
                       {report.status}
                     </Badge>
                   </div>
-                  <p className="mt-2 text-white">
-                    <span className="text-gray-400">Şikayet eden:</span>{" "}
+                  <p className="mt-2 text-[var(--foreground)]">
+                    <span className="text-[var(--muted)]">Şikayet eden:</span>{" "}
                     {report.reporterName}
                   </p>
-                  <p className="text-sm text-gray-400">
+                  <p className="text-sm text-[var(--muted)]">
                     Sebep: {report.reason}
                   </p>
                   {report.description && (
-                    <p className="mt-1 text-sm text-gray-300">{report.description}</p>
+                    <p className="mt-1 text-sm text-[var(--foreground)]">{report.description}</p>
                   )}
-                  <p className="mt-1 text-xs text-gray-500">
+                  <p className="mt-1 text-xs text-[var(--muted)]">
                     {formatRelative(report.createdAt)}
                   </p>
                 </div>

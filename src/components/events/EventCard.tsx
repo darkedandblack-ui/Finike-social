@@ -72,7 +72,7 @@ export function EventCard({ event, onJoin, onLeave, joining }: EventCardProps) {
         <div className="flex items-start justify-between gap-2">
           <div>
             <button onClick={() => setShowDetail(true)} className="text-left">
-              <h3 className="text-lg font-semibold text-white hover:text-teal-400 transition-colors">
+              <h3 className="text-lg font-semibold text-white hover:text-orange-500 transition-colors">
                 {event.title}
               </h3>
             </button>
@@ -91,23 +91,23 @@ export function EventCard({ event, onJoin, onLeave, joining }: EventCardProps) {
           />
         )}
 
-        <p className="line-clamp-2 text-sm text-gray-400">{event.description}</p>
+        <p className="line-clamp-2 text-sm text-[var(--muted)]">{event.description}</p>
 
-        <div className="space-y-2 text-sm text-gray-400">
+        <div className="space-y-2 text-sm text-[var(--muted)]">
           <div className="flex items-center gap-2">
-            <Calendar className="h-4 w-4 text-teal-400" />
+            <Calendar className="h-4 w-4 text-orange-500" />
             {formatDate(event.startDate)}
           </div>
           <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4 text-teal-400" />
+            <Clock className="h-4 w-4 text-orange-500" />
             {formatDate(event.endDate)}
           </div>
           <div className="flex items-center gap-2">
-            <MapPin className="h-4 w-4 text-teal-400" />
+            <MapPin className="h-4 w-4 text-orange-500" />
             {event.location.address ?? event.location.city}
           </div>
           <div className="flex items-center gap-2">
-            <Users className="h-4 w-4 text-teal-400" />
+            <Users className="h-4 w-4 text-orange-500" />
             {event.participantsCount}/{event.maxParticipants} katılımcı
             {isFull && (
               <span className="text-amber-400">(Bekleme listesi: {event.waitlistCount})</span>
@@ -115,7 +115,7 @@ export function EventCard({ event, onJoin, onLeave, joining }: EventCardProps) {
           </div>
         </div>
 
-        <div className="flex items-center justify-between border-t border-white/10 pt-3">
+        <div className="flex items-center justify-between border-t border-[var(--border)] pt-3">
           <Link
             href={`/profile/user?id=${event.organizerId}`}
             className="flex items-center gap-2"
@@ -125,7 +125,7 @@ export function EventCard({ event, onJoin, onLeave, joining }: EventCardProps) {
               name={event.organizerName}
               size="sm"
             />
-            <span className="text-sm text-gray-400">{event.organizerName}</span>
+            <span className="text-sm text-[var(--muted)]">{event.organizerName}</span>
           </Link>
 
           <div className="flex items-center gap-2">

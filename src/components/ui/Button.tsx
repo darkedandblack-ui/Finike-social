@@ -9,13 +9,13 @@ export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variants = {
   primary:
-    "bg-gradient-to-r from-teal-500 to-cyan-500 text-white hover:from-teal-600 hover:to-cyan-600 shadow-lg shadow-teal-500/25",
+    "bg-gradient-to-r from-orange-500 to-amber-500 text-white hover:from-orange-600 hover:to-amber-600 shadow-lg shadow-orange-500/25",
   secondary:
-    "bg-white/10 text-white hover:bg-white/20 backdrop-blur-sm border border-white/10",
-  ghost: "text-gray-300 hover:bg-white/10 hover:text-white",
+    "bg-[var(--card)] text-[var(--foreground)] hover:bg-orange-500/10 backdrop-blur-sm border border-[var(--border)]",
+  ghost: "text-[var(--muted)] hover:bg-orange-500/10 hover:text-[var(--foreground)]",
   danger: "bg-red-500/90 text-white hover:bg-red-600",
   outline:
-    "border border-teal-500/50 text-teal-400 hover:bg-teal-500/10",
+    "border border-orange-500/50 text-orange-500 hover:bg-orange-500/10",
 };
 
 const sizes = {
@@ -44,7 +44,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         disabled={disabled || loading}
         className={cn(
           "inline-flex items-center justify-center gap-2 font-medium transition-all duration-200",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-teal-500/50",
+          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-orange-500/50",
           "disabled:opacity-50 disabled:cursor-not-allowed",
           variants[variant],
           sizes[size],
